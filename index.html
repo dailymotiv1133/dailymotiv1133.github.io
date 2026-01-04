@@ -3,11 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Phrase du jour</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border: 2px solid #f8b500;
+    }
+
+    .title {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      color: #ff6f61;
+      font-weight: bold;
+    }
+
+    .phrase {
+      font-size: 1.4em;
+      color: #333;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
- <h1>Un petit mot t’attendait ici.. </h1>
-  <p id="phrase">Chargement...</p>
+  <div class="card">
+    <div class="title">Un petit mot t’attendait ici…</div>
+    <div class="phrase" id="phrase">Chargement...</div>
+  </div>
 
   <script src="script.js"></script>
 </body>
-</html> 
+</html>
