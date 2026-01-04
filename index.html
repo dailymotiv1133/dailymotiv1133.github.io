@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Définition artistique de L'ESF</title>
+  <title>ESF - Phrase du jour</title>
   <style>
     body {
       margin: 0;
@@ -16,13 +16,17 @@
       text-align: center;
     }
 
-    .main-title {
-      font-size: 2.2em;
+    /* Titre ESF */
+    .esf-title {
+      font-size: 5em;
       font-weight: bold;
-      color: #ff6f61;
-      margin: 20px 0 10px 0;
+      background: linear-gradient(to right, #0033a0, #e30613); /* bleu et rouge ESF */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 30px 0 10px 0;
     }
 
+    /* Illustration sports */
     .illustration {
       display: flex;
       justify-content: center;
@@ -39,6 +43,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
+    /* Encadré phrase */
     .card {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 25px;
@@ -64,7 +69,7 @@
   </style>
 </head>
 <body>
-  <div class="main-title">Définition artistique de L'ESF</div>
+  <div class="esf-title">ESF</div>
 
   <div class="illustration">
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Skiing_icon.png" alt="Ski">
