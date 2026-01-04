@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Phrase du jour</title>
+  <title>Définition artistique de L'ESF</title>
   <style>
     body {
       margin: 0;
@@ -10,9 +10,33 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #fceabb, #f8b500);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .main-title {
+      font-size: 2.2em;
+      font-weight: bold;
+      color: #ff6f61;
+      margin: 20px 0 10px 0;
+    }
+
+    .illustration {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .illustration img {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      border: 2px solid #f8b500;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     .card {
@@ -20,9 +44,9 @@
       border-radius: 25px;
       padding: 40px;
       max-width: 500px;
-      text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       border: 2px solid #f8b500;
+      margin-bottom: 40px;
     }
 
     .title {
@@ -40,6 +64,15 @@
   </style>
 </head>
 <body>
+  <div class="main-title">Définition artistique de L'ESF</div>
+
+  <div class="illustration">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Skiing_icon.png" alt="Ski">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Snowboard_icon.png" alt="Snowboard">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Biathlon_icon.png" alt="Biathlon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Cross-country_skiing_icon.png" alt="Ski de fond">
+  </div>
+
   <div class="card">
     <div class="title">Un petit mot t’attendait ici…</div>
     <div class="phrase" id="phrase">Chargement...</div>
