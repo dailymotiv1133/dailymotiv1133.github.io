@@ -4,16 +4,24 @@
   <meta charset="UTF-8">
   <title>ESF - Phrase du jour</title>
   <style>
+    /* Corps du site */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #fceabb, #f8b500);
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
       text-align: center;
+      /* Fond animé */
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      animation: backgroundShift 10s ease infinite alternate;
+    }
+
+    @keyframes backgroundShift {
+      from { background: linear-gradient(135deg, #fceabb, #f8b500); }
+      to { background: linear-gradient(135deg, #f8b500, #fceabb); }
     }
 
     /* Titre ESF */
@@ -41,6 +49,11 @@
       border-radius: 15px;
       border: 2px solid #f8b500;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .illustration img:hover {
+      transform: scale(1.1);
     }
 
     /* Encadré phrase */
@@ -65,12 +78,20 @@
       font-size: 1.4em;
       color: #333;
       line-height: 1.5;
+      opacity: 0;
+      animation: fadeIn 1.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
+  <!-- Titre ESF -->
   <div class="esf-title">ESF</div>
 
+  <!-- Illustrations des sports -->
   <div class="illustration">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Alpine_skiing_pictogram.svg" alt="Ski">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Snowboarding_pictogram.svg" alt="Snowboard">
@@ -78,11 +99,13 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Cross_country_skiing_pictogram.svg" alt="Ski de fond">
   </div>
 
+  <!-- Encadré de la phrase -->
   <div class="card">
     <div class="title">On Dirait Qu'un Petit Mot S'est Egaré Ici..</div>
     <div class="phrase" id="phrase">Chargement...</div>
   </div>
 
+  <!-- Script de déblocage -->
   <script src="script.js"></script>
 </body>
 </html>
