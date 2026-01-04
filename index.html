@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <title>ESF - Phrase du jour</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100%;
+      overflow: hidden; /* bloque le scroll */
+      background-color: #2c3e50;
+      color: #fff;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
+      justify-content: flex-start;
       text-align: center;
-      background-color: #2c3e50;
-      color: #fff;
       position: relative;
-      overflow-x: hidden;
     }
 
     /* Neige stable */
@@ -32,8 +36,8 @@
     }
 
     @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(110vh); opacity: 0.8; }
+      0% { transform: translateY(-10px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0.8; }
     }
 
     /* Logo ESF */
@@ -41,6 +45,8 @@
       margin: 30px 0;
       width: 250px;
       object-fit: contain;
+      z-index: 2;
+      position: relative;
     }
 
     /* Illustration sports transformées en boutons */
@@ -50,7 +56,8 @@
       gap: 30px;
       margin-bottom: 30px;
       flex-wrap: wrap;
-      z-index: 1;
+      z-index: 2;
+      position: relative;
     }
 
     .illustration button {
@@ -83,7 +90,8 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       border: 2px solid #f8b500;
       margin-bottom: 10px;
-      z-index: 1;
+      z-index: 2;
+      position: relative;
     }
 
     .title {
@@ -119,7 +127,7 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
-    /* Fenêtre description sport */
+    /* Fenêtre description sport avec animation glissement/fade-in */
     .sport-popup {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
@@ -134,6 +142,16 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       border: 2px solid #f8b500;
       text-align: left;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      z-index: 2;
+    }
+
+    .sport-popup.show {
+      display: block;
+      transform: translateY(0);
+      opacity: 1;
     }
 
     /* Croix pour fermer */
@@ -146,6 +164,7 @@
       color: #ffd700;
       font-size: 1.2em;
     }
+
   </style>
 </head>
 <body>
@@ -182,7 +201,6 @@
     <div id="sportDescription">Clique sur un sport pour en savoir plus.</div>
   </div>
 
-  <!-- Script de déblocage + timer + description -->
   <script>
     const phrases = [
       "Chaque jour compte.",
@@ -235,7 +253,7 @@
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    // Description des sports détaillée
+    // Description détaillée des sports
     const descriptions = {
       ski: "En école de ski, on retrouve deux épreuves principales : la Flèche, qui teste la vitesse et la précision dans les virages, et le Chamois, qui évalue la maîtrise technique sur des parcours variés. Le ski alpin combine vitesse, équilibre et contrôle pour descendre les pistes en toute sécurité.",
       snowboard: "Le snowboard se pratique sur une seule planche et met l’accent sur l’équilibre et le style. À l’ESF, les cours incluent des exercices sur les virages, les sauts et la glisse freestyle pour apprendre à maîtriser la planche dans toutes les situations.",
@@ -246,12 +264,14 @@
     function showDescription(sport) {
       const popup = document.getElementById('sportPopup');
       document.getElementById('sportDescription').innerText = descriptions[sport];
-      popup.style.display = 'block';
-      popup.scrollIntoView({ behavior: 'smooth' });
+      popup.style.display = 'block'; 
+      setTimeout(() => popup.classList.add('show'), 10); // déclenche transition
     }
 
     function closeDescription() {
-      document.getElementById('sportPopup').style.display = 'none';
+      const popup = document.getElementById('sportPopup');
+      popup.classList.remove('show');
+      setTimeout(() => { popup.style.display = 'none'; }, 400);
     }
 
     // Création de la neige stable
@@ -265,7 +285,7 @@
       snow.innerText = '❄';
       document.body.appendChild(snow);
     }
-  </script>
 
+  </script>
 </body>
 </html>
