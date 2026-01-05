@@ -2,7 +2,7 @@ const phrases = [
   "Commence avant d’être prêt.",
   "Tu avances même quand tu doutes.",
   "La discipline crée la liberté.",
-  "Chaque jour compteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee."
+  "Chaque jour compte."
   // 👉 ajoute ici jusqu’à 365 phrases
 ];
 
