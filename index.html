@@ -9,7 +9,7 @@
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100%;
-      overflow: hidden; /* bloque le scroll */
+      overflow: hidden;
       background-color: #2c3e50;
       color: #fff;
     }
@@ -49,7 +49,7 @@
       position: relative;
     }
 
-    /* Illustration sports transformées en boutons */
+    /* Illustrations sports transformées en boutons */
     .illustration {
       display: flex;
       justify-content: center;
@@ -68,8 +68,8 @@
     }
 
     .illustration img {
-      width: 80px;
-      height: 80px;
+      width: 100px;   /* taille augmentée */
+      height: 100px;
       border-radius: 15px;
       border: 2px solid #f8b500;
       box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -127,7 +127,7 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
-    /* Fenêtre description sport avec animation glissement/fade-in */
+    /* Fenêtre description sport */
     .sport-popup {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
@@ -138,7 +138,7 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
       margin-top: 15px;
       position: relative;
-      display: none; /* cachée par défaut */
+      display: none;
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       border: 2px solid #f8b500;
       text-align: left;
@@ -154,7 +154,6 @@
       opacity: 1;
     }
 
-    /* Croix pour fermer */
     .close-btn {
       position: absolute;
       top: 5px;
@@ -164,7 +163,6 @@
       color: #ffd700;
       font-size: 1.2em;
     }
-
   </style>
 </head>
 <body>
@@ -172,7 +170,7 @@
   <!-- Logo ESF -->
   <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Esf-Logo.png" alt="ESF Logo" class="esf-logo">
 
-  <!-- Illustrations des sports (boutons) -->
+  <!-- Illustrations des sports -->
   <div class="illustration">
     <button onclick="showDescription('ski')">
       <img src="https://www.image-heberg.fr/files/17675675291956170808.png" alt="Ski">
@@ -202,22 +200,368 @@
   </div>
 
   <script>
+    // ⚠️ Ici tu colleras tes 363 phrases dans ce tableau
     const phrases = [
-      "Chaque jour compte.",
-      "Commence avant d’être prêt.",
-      "Tu avances même quand tu doutes.",
-      "La discipline crée la liberté."
-    ];
-
+    "Chaque erreur est une leçon ; elle ne te freine pas, elle t’enseigne.",
+"Avancer lentement reste une forme de fidélité envers toi-même.",
+"La douceur que tu t’accordes aujourd’hui deviendra ta force de demain.",
+"Tes silences ne sont pas des vides, mais des espaces où tu te reconstruis.",
+"Se perdre n’est pas échouer, c’est parfois la seule façon de vraiment se retrouver.",
+"Rien n’est figé : tout ce qui vit est en mouvement, y compris toi.",
+"Douter montre ta valeur et ton introspection.",
+"La paix commence quand tu cesses de mesurer ta valeur à celle des autres.",
+"Chaque jour est neutre au réveil : c’est ton regard qui le façonne.",
+"T’écouter est souvent plus important que d’être comprise.",
+"Ce que tu traverses te transforme, mais ne te résume pas.",
+"Être patiente avec toi-même est un acte d’amour profond.",
+"Même fatiguée, tu avances encore, souvent plus que tu ne le crois.",
+"L’imperfection est la preuve que tu essaies.",
+"Respire : ton rythme n’est pas en retard, il est simplement le tien.",
+"Les tempêtes intérieures nettoient parfois ce qui devait partir.",
+"Tu n’as rien à prouver pour mériter la paix et le respect.",
+"Te reposer n’est pas fuir, c’est préserver ce qui compte.",
+"Ce que tu ressens mérite d’être accueilli, pas repoussé.",
+"Ta sensibilité est une boussole, pas une faiblesse.",
+"Chaque pas, même hésitant, participe à ton chemin.",
+"Tu peux être forte sans te maltraiter.",
+"Le calme n’est pas un manque d’ambition, c’est une clarté.",
+"Tu grandis aussi dans les périodes où rien ne semble avancer.",
+"Accepte tes saisons intérieures : elles ont toutes une utilité.",
+"L’avenir se prépare dans la façon dont tu traites le présent.",
+"Choisir la lenteur, c’est parfois choisir la justesse.",
+"Ta valeur n’est pas liée à ta productivité.",
+"Lâcher prise demande souvent plus de courage que s’accrocher.",
+"Tu n’échoues pas, tu apprends à devenir.",
+"Honorer ton rythme, c’est respecter ta vérité.",
+"Tes cicatrices racontent ton endurance, pas ta fragilité.",
+"Recommencer n’est jamais un recul quand c’est conscient.",
+"Le silence intérieur est un refuge stable.",
+"La bienveillance adoucit les chemins les plus rudes.",
+"Ton parcours n’a pas besoin d’être validé par tous.",
+"L’équilibre se construit jour après jour.",
+"Tu mérites la paix sans condition préalable.",
+"La constance humble dépasse la perfection épuisante.",
+"Même abîmée, tu restes un être entier.",
+"Ce que tu nourris en toi finit toujours par s’exprimer.",
+"Ressentir intensément est une forme de courage.",
+"Avancer sans te renier est une victoire silencieuse.",
+"Le courage ne fait pas toujours de bruit.",
+"Te pardonner est une étape essentielle, pas un luxe.",
+"La lumière trouve toujours un passage.",
+"Changer d’avis, c’est parfois se respecter davantage.",
+"La paix intérieure se choisit chaque jour.",
+"Deviens l’endroit sûr que tu cherches.",
+"Tu es suffisante, même dans l’incertitude.",
+"Tu n’as pas besoin d’aller bien pour continuer ; parfois, continuer est déjà aller mieux.",
+"Chaque respiration te rattache au présent, là où tout reste possible.",
+"L’essentiel ne s’impose jamais, il se ressent.",
+"T’aimer dans l’inachevé, c’est refuser de conditionner ta paix.",
+"Le chemin se révèle sous tes pas, jamais avant eux.",
+"Ralentir n’est pas renoncer, c’est t’écouter.",
+"La confusion précède souvent les décisions justes.",
+"Te choisir n’est pas un égoïsme, c’est une responsabilité.",
+"Les jours lourds ne t’enlèvent rien, ils te demandent de la douceur.",
+"Ta vérité mérite un espace sûr pour exister.",
+"Ce que tu ressens aujourd’hui ne définit pas ton demain.",
+"La paix intérieure se cultive dans les gestes simples.",
+"Tu peux être fière sans être arrivée.",
+"Les pauses protègent ce que l’effort use.",
+"Ton souffle connaît déjà le chemin du calme.",
+"Même fragile, tu avances avec dignité.",
+"Tu as le droit d’exister sans justification.",
+"La patience est une confiance qui a appris à attendre.",
+"Tu es plus vaste que tes peurs passagères.",
+"Chaque matin t’offre une nouvelle possibilité.",
+"Déposer ce qui pèse, c’est faire de la place.",
+"La bienveillance commence là où le jugement s’arrête.",
+"Tu peux guérir sans tout comprendre.",
+"Le courage est parfois de rester quand tout vacille.",
+"Ta vie n’est pas une course contre toi-même.",
+"La douceur est une intelligence du cœur.",
+"Ton intuition sait quand continuer.",
+"L’instant présent peut devenir un refuge.",
+"Changer n’est pas se trahir, c’est évoluer.",
+"Le calme est une décision intime.",
+"Écouter tes limites, c’est te respecter.",
+"Tu mérites le repos que tu repousses parfois.",
+"Chaque jour est une tentative valable.",
+"La paix se construit dans les choix répétés.",
+"Tu restes digne même dans l’incertitude.",
+"Le silence peut être une réponse sage.",
+"Tu avances plus loin que tu ne le vois.",
+"L’espoir se cache souvent dans les détails.",
+"Tu peux être douce et déterminée.",
+"La confiance se reconstruit pas à pas.",
+"Tu n’as pas à porter ce qui ne t’appartient pas.",
+"Recommencer autrement est une force.",
+"Lâcher ne signifie pas tomber.",
+"Tu es encore en train d’apprendre à vivre.",
+"La vie ne te demande pas d’être prête, seulement d’être présente.",
+"Même dans le flou, ton cœur sait ce qu’il refuse.",
+"Apprendre à t’écouter, c’est déjà te respecter.",
+"Tu peux avancer sans te faire violence.",
+"La paix n’est pas l’absence de peur, mais la fin de la lutte contre elle.",
+"Tu n’as pas besoin d’être sûre pour être sincère dans ton pas.",
+"Tu peux respirer au milieu de l’incertitude.",
+"Tu peux t’accorder du temps sans culpabilité.",
+"Tu es fidèle à toi-même même dans le doute.",
+"La lumière se glisse toujours dans les fissures de tes peurs.",
+"Tu peux avancer doucement sans perdre ton cap.",
+"La sérénité naît quand tu acceptes l’imperfection.",
+"Tu n’es pas définie par tes erreurs, mais par ta capacité à te relever.",
+"Chaque jour offre un espace pour te réinventer.",
+"Tu peux ralentir pour mieux ressentir le chemin.",
+"Le silence intérieur est une force discrète.",
+"Tu es assez, même quand tout semble fragile.",
+"La douceur n’affaiblit pas, elle soutient.",
+"Tu avances à ton rythme, et c’est suffisant.",
+"La confiance commence par le choix de t’accueillir.",
+"Tu peux t’autoriser à ne pas tout contrôler.",
+"Chaque pas que tu fais vers toi-même est un pas juste.",
+"La paix intérieure se nourrit de petites décisions répétées.",
+"Tu es plus forte que tes doutes momentanés.",
+"Tu peux faire confiance à ton intuition silencieuse.",
+  "Le repos est un allié précieux pour ton esprit.",
+"Tu n’as pas besoin de précipiter ton chemin.",
+"Tu avances, même quand tu n’as pas de certitudes.",
+"Chaque souffle est un acte de courage et de vie.",
+"Tu peux choisir la bienveillance même envers tes erreurs.",
+"La patience apaise ce que la précipitation blesse.",
+"Tu avances dans la confiance, pas dans la force brute.",
+"La paix commence par un regard tendre vers toi-même.",
+"Tu peux accueillir ce qui est sans résister.",
+"Chaque instant contient la possibilité d’un renouveau.",
+"Tu es autorisée à ralentir sans honte.",
+"La douceur envers toi est un refuge solide.",
+"Tu avances avec constance, pas avec frénésie.",
+"La sérénité se construit dans le respect de tes limites.",
+"Tu peux te détacher de ce qui ne t’appartient pas.",
+"La paix intérieure est un espace que tu choisis chaque jour.",
+"Tu avances, même dans les moments où rien ne semble clair.",
+"Chaque émotion a le droit d’exister et de passer.",
+"Tu n’as pas besoin de tout résoudre pour être entière.",
+"La lenteur révèle souvent les vérités invisibles.",
+"Tu peux poser des limites sans culpabilité.",
+"Le calme est une force silencieuse.",
+"Tu avances avec honnêteté, et cela suffit.",
+"Chaque journée est un terrain pour cultiver la paix.",
+"Tu peux accueillir le présent sans craindre l’avenir.",
+"La paix se trouve dans l’acceptation de ce qui est.",
+"Tu avances même quand tout semble immobile.",
+"Chaque souffle te rappelle que tu es vivante et entière.",
+"Tu peux lâcher ce qui t’épuise sans perdre ton cap.",
+"Le calme intérieur éclaire les décisions importantes.",
+"Tu avances avec douceur, pas avec violence.",
+"La sérénité commence quand tu cesses de te battre contre toi.",
+"Tu es suffisante dans tes efforts et tes limites.",
+"Chaque moment d’attention à toi-même est un trésor.",
+"Tu peux ralentir pour mieux ressentir la vie.",
+"La confiance se construit dans la constance des petites actions.",
+"Tu avances avec courage, même silencieusement.",
+"La paix intérieure n’a pas besoin d’être spectaculaire pour exister.",
+"Tu es autorisée à ne pas tout comprendre aujourd’hui.",
+"Le repos est une stratégie de vie, pas une faiblesse.",
+"Tu peux être patiente avec toi-même, même dans l’incertitude.",
+"Chaque pas que tu fais vers toi est un pas de vérité.",
+"Tu avances avec bienveillance, envers toi et ton chemin.",
+"La sérénité se trouve dans la confiance que tu te donnes.",
+"Tu peux respirer profondément et retrouver ton centre.",
+"La paix est déjà là, elle attend que tu la voies.",
+"Tu avances avec intégrité, même si personne ne regarde.",
+"Chaque jour est une occasion de recommencer plus légère.",
+"Tu peux poser ce qui pèse et continuer avec légèreté.",
+"Le calme intérieur est une force invisible mais puissante.",
+"Tu avances même quand tu doutes de ta direction.",
+"La douceur envers toi-même est un choix courageux.",
+"Tu es en sécurité dans ton propre espace intérieur.",
+"Chaque respiration te rattache à ta vérité.",
+"Tu peux accueillir l’incertitude avec confiance.",
+"La paix se cultive dans les gestes simples et constants.",
+"Tu avances honnêtement, et cela est suffisant.",
+"La sérénité naît quand tu te permets de t’écouter.",
+"Tu peux faire moins et être plus vraie.",
+"Chaque instant de calme est une victoire silencieuse.",
+"Tu avances avec patience, pas avec pression.",
+"La douceur t’accompagne dans chaque décision.",
+"Tu es assez, même quand tu es vulnérable.",
+"Chaque pas que tu fais vers toi-même est précieux.",
+"Tu peux te libérer de ce qui n’est pas nécessaire.",
+"La paix intérieure commence par un regard tendre sur toi.",
+"Tu avances même quand le chemin est flou.",
+"Chaque émotion que tu ressens est légitime.",
+"Tu peux t’accorder du temps pour respirer et réfléchir.",
+"Le calme est un espace que tu choisis chaque jour.",
+"Tu avances doucement, sans précipitation.",
+"La sérénité se construit par de petites habitudes bienveillantes.",
+"Tu es fidèle à toi-même, et c’est suffisant.",
+"Chaque journée contient un moment pour te reconnecter à toi.",
+"Tu peux accepter ce que tu ne peux pas changer.",
+"La paix intérieure grandit dans l’écoute attentive de toi.",
+"Tu avances même si tout semble lent.",
+"Chaque respiration profonde te recentre.",
+"Tu peux être indulgente envers toi, et envers tes erreurs.",
+"Le calme est un allié discret mais puissant.",
+"Tu avances en conscience, pas par obligation.",
+"La douceur intérieure guide tes pas.",
+"Tu es en sécurité dans ta progression.",
+"Chaque moment de présence est un cadeau pour toi-même.",
+"Tu peux te faire confiance malgré les doutes.",
+"La paix n’est pas l’absence de difficultés, mais la façon dont tu les traverses.",
+"Tu avances avec patience et discernement.",
+"Chaque jour est une occasion de semer la sérénité.",
+"Tu peux te libérer de ce qui t’épuise émotionnellement.",
+"Le calme intérieur est une source inépuisable.",
+"Tu avances même quand le chemin semble incertain.",
+"La douceur envers toi est un signe de force.",
+"Tu es assez, telle que tu es maintenant.",
+"Chaque respiration consciente t’ancre dans la vie.",
+"Tu peux accueillir chaque émotion sans la juger.",
+"La paix commence par un instant de silence avec toi-même.",
+"Tu avances avec intégrité, même sans reconnaissance.",
+"Chaque petit pas vers toi-même est une victoire.",
+"Tu peux te reposer sans culpabilité.",
+"Le calme est un choix que tu répètes chaque jour.",
+"Tu avances dans le respect de ton rythme intérieur.",
+"La douceur protège ce qui est fragile en toi.",
+"Tu es présente, complète, même dans tes hésitations.",
+"Chaque souffle te ramène à ton centre.",
+"Tu peux accueillir le jour avec sérénité.",
+"La paix t’habite déjà, il suffit de la laisser émerger.",
+"Tu avances tranquillement, sans te presser.",
+"Chaque instant contient la possibilité de recommencer.",
+"Tu peux te libérer des attentes inutiles.",
+"Le repos nourrit la clarté et l’énergie.",
+"Tu avances avec conscience et délicatesse.",
+"La douceur intérieure guide chaque décision.",
+"Tu es en sécurité dans tes choix et tes limites.",
+"Chaque instant de calme est une victoire silencieuse.",
+"Tu peux respirer profondément et te reconnecter à toi.",
+"La paix est réelle, elle existe dans ton souffle.",
+"Tu avances même quand tu n’as pas de certitudes.",
+"Chaque jour est un cadeau pour t’accueillir pleinement.",
+"Tu peux ralentir sans perdre ta force.",
+"Le calme est un espace que tu crées dans chaque action.",
+"Tu avances avec constance, pas avec pression.",
+"La douceur est un choix, un soutien, une direction.",
+"Tu es alignée avec toi-même, même dans l’incertain.",
+"Chaque respiration t’ancre dans l’instant présent.",
+"Tu peux accueillir la tranquillité avec gratitude.",
+"La paix est constante quand tu cesses de te juger.",
+"Tu avances sereinement, même dans le doute.",
+"Chaque instant est suffisant pour te reconnecter à toi.",
+"Tu peux lâcher ce qui t’épuise sans crainte.",
+"Le repos est une force, pas une pause inutile.",
+"Tu avances paisiblement, avec douceur et attention.",
+"La sérénité demeure même au milieu du chaos.",
+"Tu es présente, complète, capable de tout traverser.",
+"Chaque respiration consciente est une victoire sur la précipitation.",
+"Tu peux respirer avec confiance et relâchement.",
+"La paix intérieure est un choix que tu répètes chaque jour.",
+"Tu avances avec calme et persévérance, même lentement.",
+"Chaque jour suffit pour semer la sérénité dans ton cœur.",
+"Tu es en paix avec toi-même, avec ton chemin, et avec la vie.",
+"Tu peux déposer les attentes inutiles.",
+"Le présent est plus sûr que toutes les projections.",
+"Chaque émotion traverse, rien ne s’installe pour toujours.",
+"Tu n’es pas en retard, tu es en chemin.",
+"La paix commence quand tu t’accordes le droit d’être imparfaite.",
+"Tu peux aimer sans te perdre.",
+"Le courage est parfois juste de rester fidèle à toi.",
+"Tu avances mieux quand tu respires.",
+"La stabilité se construit de l’intérieur.",
+"Tu es plus vaste que tes pensées du moment.",
+"Le silence intérieur est une victoire invisible.",
+"Tu peux te faire confiance progressivement.",
+"La vie ne te teste pas, elle t’enseigne.",
+"Tu n’as pas besoin d’aller vite pour aller juste.",
+"La fatigue n’annule pas ta valeur.",
+"Tu peux ralentir sans reculer.",
+"La paix intérieure n’est pas un sommet, c’est une pratique.",
+"Tu avances même quand personne ne le voit.",
+"Être douce avec toi est un choix courageux.",
+"Tu peux poser les armes sans perdre ta force.",
+"Le repos est un droit, pas une récompense.",
+"Tu es déjà suffisante.",
+"Chaque jour t’offre un espace pour recommencer.",
+"Tu peux changer sans te renier.",
+"La patience est une confiance qui a mûri.",
+"Tu n’as rien à prouver à la vie.",
+"La paix arrive quand tu cesses de te comparer.",
+"Tu peux accueillir l’incertitude sans t’effondrer.",
+"Ton rythme mérite le respect.",
+"La clarté viendra quand tu cesseras de forcer les réponses.",
+"Tu es plus solide que tes hésitations.",
+"Tu continues, et c’est déjà immense.",
+"Tu n’as pas besoin de te réparer, seulement de t’accueillir.",
+"La vie t’invite à avancer pas à pas.",
+"Chaque instant est une nouvelle possibilité.",
+"Tu peux te faire confiance même quand tu doutes.",
+"Le calme intérieur est une pratique quotidienne.",
+"Tu avances avec douceur et détermination.",
+"Chaque respiration consciente t’ancre dans le présent.",
+"Tu peux laisser partir ce qui ne te sert plus.",
+"La sérénité se construit avec chaque choix respectueux de toi.",
+"Tu es en sécurité avec toi-même et ton chemin.",
+"Chaque pas, même petit, te rapproche de ta paix intérieure.",
+"Tu peux avancer sans précipitation.",
+"La confiance se cultive dans la constance.",
+"Tu es capable de traverser les tempêtes sans te perdre.",
+"La paix est déjà là, il suffit de l’accueillir.",
+"Tu avances avec patience et intégrité.",
+"Chaque jour est une occasion de recommencer plus léger.",
+"Tu peux poser ce qui pèse et continuer avec légèreté.",
+"La douceur intérieure est une force discrète mais puissante.",
+"Tu avances même dans l’incertitude.",
+"Être douce avec toi est un acte courageux.",
+"Tu peux t’accorder des pauses sans culpabilité.",
+"Le repos est un droit, pas une faiblesse.",
+"Tu es déjà suffisante, telle que tu es.",
+"Chaque journée t’offre un espace pour te reconnecter à toi.",
+"Tu peux évoluer sans te trahir.",
+"La patience est une force qui grandit avec le temps.",
+"Tu n’as rien à prouver à personne.",
+"La paix se cultive quand tu cesses de te comparer.",
+"Tu peux accueillir l’incertitude avec confiance.",
+"Ton rythme mérite d’être respecté.",
+"La clarté arrive quand tu arrêtes de forcer les réponses.",
+"Tu es plus forte que tes doutes passagers.",
+"Tu continues, et c’est déjà un accomplissement.",
+"Tu n’as pas besoin de te réparer, seulement de t’accueillir.",
+"Tu avances avec constance et bienveillance.",
+"Chaque moment t’invite à te reconnecter à toi-même.",
+"Tu peux respirer profondément et retrouver ton centre.",
+"La sérénité se construit dans la douceur et le respect de toi.",
+"Tu es en sécurité avec toi-même et ton chemin.",
+"Chaque pas vers toi-même est une victoire.",
+"Tu peux avancer à ton rythme, sans te presser.",
+"La confiance se construit dans les petites actions répétées.",
+"Tu es capable de traverser les difficultés sans te perdre.",
+"La paix est présente, il suffit de l’accueillir.",
+"Tu avances avec patience et intégrité.",
+"Chaque jour est une occasion de semer la sérénité.",
+"Tu peux poser ce qui pèse et continuer avec légèreté.",
+"La douceur intérieure est une force stable.",
+"Tu avances même si le chemin semble flou.",
+"Être douce avec toi est un choix courageux.",
+"Tu peux te faire confiance sans précipitation.",
+"Le repos est une force, pas une pause inutile.",
+"Tu es déjà suffisante telle que tu es.",
+"Chaque jour t’offre un espace pour recommencer.",
+"Tu peux changer sans te renier.",
+"La patience est une confiance qui a mûri.",
+"Tu n’as rien à prouver à la vie.",
+"La paix arrive quand tu cesses de te comparer.",
+"Tu peux accueillir l’incertitude sans t’effondrer.",
+"Ton rythme mérite le respect.",
+"La clarté viendra quand tu cesseras de forcer les réponses.",
+"Tu es plus solide que tes hésitations.",
+"Tu continues, et c’est déjà immense.",
+"Tu n’as pas besoin de te réparer, seulement de t’accueillir."
+];
+    
     const launchDate = new Date("2026-01-01T07:30:00");
     const now = new Date();
-
-    const today730 = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      7, 30, 0
-    );
+    const today730 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 7, 30, 0);
 
     let dayIndex;
     if (now < today730) {
@@ -226,45 +570,33 @@
       dayIndex = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
     }
     dayIndex = Math.max(0, dayIndex);
+    document.getElementById("phrase").innerText = phrases[dayIndex % phrases.length];
 
-    document.getElementById("phrase").innerText =
-      phrases[dayIndex % phrases.length];
-
-    // TIMER jusqu'à 7h30 demain
+    // Timer jusqu'à 7h30
     function updateTimer() {
       const now = new Date();
-      let next730 = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        7, 30, 0
-      );
-      if (now >= next730) {
-        next730.setDate(next730.getDate() + 1);
-      }
+      let next730 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 7, 30, 0);
+      if (now >= next730) next730.setDate(next730.getDate() + 1);
       const diff = next730 - now;
       const hours = Math.floor(diff / (1000*60*60));
       const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
       const seconds = Math.floor((diff % (1000*60)) / 1000);
-      document.getElementById("timer").innerText =
-        `Prochaine phrase dans ${hours}h ${minutes}m ${seconds}s`;
+      document.getElementById("timer").innerText = `Prochaine phrase dans ${hours}h ${minutes}m ${seconds}s`;
     }
-
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    // Description détaillée des sports
+    // Descriptions détaillées des sports
     const descriptions = {
-      ski: "En école de ski, on retrouve deux épreuves principales : la Flèche, qui teste la vitesse et la précision dans les virages, et le Chamois, qui évalue la maîtrise technique sur des parcours variés. Le ski alpin combine vitesse, équilibre et contrôle pour descendre les pistes en toute sécurité.",
-      snowboard: "Le snowboard se pratique sur une seule planche et met l’accent sur l’équilibre et le style. À l’ESF, les cours incluent des exercices sur les virages, les sauts et la glisse freestyle pour apprendre à maîtriser la planche dans toutes les situations.",
-      biathlon: "Le biathlon combine ski de fond et tir à la carabine. Les élèves apprennent à gérer l’effort et la respiration, à alterner vitesse et précision. Les épreuves de l’ESF permettent de développer endurance et concentration, tout en respectant la sécurité lors du tir.",
-      skiFond: "Le ski de fond se pratique sur des parcours variés, alternant technique classique et skating. À l’ESF, les cours visent à améliorer l’endurance, le rythme et l’efficacité des mouvements, tout en découvrant différents types de neige et terrains."
+      ski: "Le ski alpin combine vitesse, équilibre et contrôle pour descendre les pistes. À l'ESF, deux épreuves emblématiques :\n- **Flèche** : descente chronométrée pour travailler virages et rapidité.\n- **Chamois** : parcours technique avec obstacles et bosses pour améliorer agilité et maîtrise.\nCes épreuves développent confiance et sécurité.",
+      snowboard: "Le snowboard se pratique sur une planche unique. À l'ESF : virages carving, sauts et tricks freestyle sur modules adaptés, et parcours techniques pour maîtriser la planche sur piste et hors piste.",
+      biathlon: "Le biathlon combine ski de fond et tir. À l'ESF : gestion de l'effort et de la respiration, précision sous pression, alternance vitesse et contrôle. Discipline pour endurance et concentration.",
+      skiFond: "Le ski de fond alterne classique et skating. À l'ESF : amélioration de l'endurance, fluidité et efficacité des mouvements, adaptation aux terrains variés et types de neige."
     };
 
     function showDescription(sport) {
       const popup = document.getElementById('sportPopup');
       document.getElementById('sportDescription').innerText = descriptions[sport];
-      // si la popup est déjà visible, juste changer le texte
       if (!popup.classList.contains('show')) {
         popup.style.display = 'block'; 
         setTimeout(() => popup.classList.add('show'), 10);
@@ -277,7 +609,7 @@
       setTimeout(() => { popup.style.display = 'none'; }, 400);
     }
 
-    // Création de la neige réaliste
+    // Neige réaliste
     const numberOfSnowflakes = 50;
     for (let i = 0; i < numberOfSnowflakes; i++) {
       const snow = document.createElement('div');
@@ -287,12 +619,11 @@
       snow.style.fontSize = size + 'px';
       const duration = 5 + Math.random() * 5;
       snow.style.animationDuration = duration + 's';
-      const xOffset = (Math.random() - 0.5) * 100; // oscillation horizontale
+      const xOffset = (Math.random() - 0.5) * 100;
       snow.style.setProperty('--x', xOffset + 'px');
       snow.innerText = '❄';
       document.body.appendChild(snow);
     }
-
   </script>
 </body>
 </html>
